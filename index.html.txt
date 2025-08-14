@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Benim Blogum — Teknoloji, Notlar, İpuçları</title>
+  <meta name="description" content="Kısa, öz ve faydalı makaleler. Kod, üretkenlik ve gerçek hayat notları." />
+  <meta name="author" content="Adınız" />
+  <meta property="og:title" content="Benim Blogum" />
+  <meta property="og:description" content="Kısa, öz ve faydalı makaleler." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kullaniciadiniz.github.io/" />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg: #0b0c0f;
+      --card:#12141a;
+      --text:#e7e9ee;
+      --muted:#a7adbb;
+      --brand:#6ee7ff;
+      --accent:#7c3aed;
+      --ring: #2a2f3a;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#ffffff; --card:#f7f7fb; --text:#0d1117; --muted:#536075;
+        --brand:#0ea5e9; --accent:#6d28d9; --ring:#e6e8ee;
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:linear-gradient(180deg,var(--bg),#0e1116);
+      color:var(--text); font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:28px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:16px 0;border-bottom:1px solid var(--ring);
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:12px;background:
+        radial-gradient(120% 120% at 80% 0%, var(--brand), var(--accent));
+      box-shadow:0 6px 18px rgba(0,0,0,.25);
+    }
+    nav a{
+      padding:8px 12px;border-radius:10px;border:1px solid transparent;
+    }
+    nav a:hover{border-color:var(--ring);background-color:rgba(255,255,255,.04)}
+    .hero{
+      padding:42px 0 22px; display:grid; gap:16px;
+    }
+    .hero h1{
+      margin:0;font-size:clamp(28px,4.5vw,46px);line-height:1.15;
+      letter-spacing:-.02em;
+    }
+    .hero p{margin:0;color:var(--muted);max-width:70ch}
+    .cta{
+      margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn{
+      padding:10px 14px;border-radius:12px;border:1px solid var(--ring);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(0,0,0,.04));
+    }
+    .btn.primary{
+      border-color:transparent;
+      background:linear-gradient(135deg,var(--brand),var(--accent));
+      color:#0b0c0f;font-weight:700;
+    }
+    .grid{
+      display:grid; gap:16px; grid-template-columns:repeat(12,1fr);
+    }
+    .cards{ margin-top:10px; }
+    .card{
+      grid-column:span 12;
+      background:linear-gradient(180deg,var(--card),rgba(0,0,0,.1));
+      border:1px solid var(--ring); border-radius:18px; padding:18px;
+      transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+    .card:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.18) }
+    @media(min-width:720px){
+      .card{ grid-column:span 6; }
+    }
+    @media(min-width:1000px){
+      .card{ grid-column:span 4; }
+    }
+    .meta{display:flex;gap:12px; align-items:center; color:var(--muted); font-size:14px}
+    .tag{padding:4px 8px;border:1px solid var(--ring); border-radius:999px}
+    .card h3{margin:.4rem 0 .2rem; letter-spacing:-.01em}
+    .card p{margin:.2rem 0;color:var(--muted)}
+    .read{display:inline-block;margin-top:10px;font-weight:600}
+    .read:hover{text-decoration:underline}
+    footer{
+      margin:42px 0 10px; padding-top:18px; border-top:1px solid var(--ring);
+      color:var(--muted); font-size:14px;
+      display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    }
+    /* --- Makale sayfası (örnek düzen) --- */
+    .article{
+      margin-top:12px; background:var(--card); border:1px solid var(--ring);
+      border-radius:18px; padding:22px;
+    }
+    .article h1{margin-top:0; letter-spacing:-.02em}
+    .article .a-meta{color:var(--muted);font-size:14px;margin-bottom:16px}
+    .article img{max-width:100%;height:auto;border-radius:14px;border:1px solid var(--ring)}
+    .article h2,.article h3{margin-top:1.4em}
+    .toc{
+      border:1px dashed var(--ring); padding:12px;border-radius:12px; background:rgba(0,0,0,.04); margin:12px 0;
+    }
+    .note{
+      border-left:4px solid var(--brand); padding:10px 12px; background:rgba(255,255,255,.03);
+      border-radius:10px; margin:12px 0;
+    }
+    .sr{position:absolute;left:-9999px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <a href="./"><span>Benim Blogum</span></a>
+      </div>
+      <nav>
+        <a href="./">Ana Sayfa</a>
+        <a href="#arsiv">Arşiv</a>
+        <a href="#hakkinda">Hakkında</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+    </header>
+
+    <!-- Kahraman alanı -->
+    <section class="hero">
+      <h1>Basit, hızlı ve net içerikler.</h1>
+      <p>Kod, üretkenlik, otomasyon ve kariyer notlarımı kısa ve uygulanabilir şekilde paylaşıyorum.</p>
+      <div class="cta">
+        <a class="btn primary" href="#yazilar">Son Yazılar</a>
+        <a class="btn" href="#hakkinda">Hakkımda</a>
+      </div>
+    </section>
+
+    <!-- Kartlar: Son Yazılar -->
+    <section id="yazilar" class="cards grid">
+      <!-- Kart 1 -->
+      <article class="card">
+        <div class="meta">
+          <span>🗓️ 14 Ağu 2025</span>
+          <span class="tag">#kod</span>
+          <span class="tag">#verimlilik</span>
+        </div>
+        <h3><a href="yazi-ornek-1.html">5 dakikada GitHub Pages ile blog</a></h3>
+        <p>Alan adı, repo ve tek dosyalık şablonla sıfırdan yayına çıkış...</p>
+        <a class="read" href="yazi-ornek-1.html">Devamını oku →</a>
+      </article>
+      <!-- Kart 2 -->
+      <article class="card">
+        <div class="meta">
+          <span>🗓️ 10 Ağu 2025</span>
+          <span class="tag">#kariera</span>
+          <span class="tag">#ipucu</span>
+        </div>
+        <h3><a href="yazi-ornek-2.html">Not alma sistemim: 3 katman</a></h3>
+        <p>Fikir → Taslak → Yayın akışıyla tıkanmadan üretmek için minimal sistem.</p>
+        <a class="read" href="yazi-ornek-2.html">Devamını oku →</a>
+      </article>
+      <!-- Kart 3 -->
+      <article class="card">
+        <div class="meta">
+          <span>🗓️ 02 Ağu 2025</span>
+          <span class="tag">#otomasyon</span>
+        </div>
+        <h3><a href="yazi-ornek-3.html">CLI ile içerik şablonu</a></h3>
+        <p>Her yazıya aynı iskeleti otomatik açan minik bir komut dosyası.</p>
+        <a class="read" href="yazi-ornek-3.html">Devamını oku →</a>
+      </article>
+    </section>
+
+    <!-- Örnek Makale Sayfası (tek dosyada şablon) -->
+    <section id="ornek-makale" class="article" aria-labelledby="makaleBaslik">
+      <h1 id="makaleBaslik">Makale Başlığı (Örnek Düzen)</h1>
+      <div class="a-meta">🗓️ 14 Ağu 2025 · 6 dk okuma · Etiketler: <span class="tag">#kod</span> <span class="tag">#blog</span></div>
+      <div class="toc">
+        <strong>İçindekiler</strong>
+        <ol>
+          <li><a href="#giris">Giriş</a></li>
+          <li><a href="#ipucu">Kısa İpuçları</a></li>
+          <li><a href="#sonuc">Sonuç</a></li>
+        </ol>
+      </div>
+      <h2 id="giris">Giriş</h2>
+      <p>Bu bölüm, makale giriş örneği. Net problem → net çözüm.</p>
+
+      <h2 id="ipucu">Kısa İpuçları</h2>
+      <div class="note"><strong>Not:</strong> Yazıların ilk paragrafını net faydayla aç. Okuru tutar.</div>
+      <ul>
+        <li>Başlıklar <code>H2 → H3</code> hiyerarşisiyle kısa olsun.</li>
+        <li>Paragrafları 3–4 cümlede bitir.</li>
+        <li>Her yazının sonunda tek aksiyon: “Bunu dene / indir / uygula”.</li>
