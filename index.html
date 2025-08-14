@@ -1,61 +1,119 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Yapım Aşamasındadır</title>
 <style>
-    body {
-        margin: 0;
-        background: #0d1117;
-        color: #c9d1d9;
-        font-family: 'Courier New', monospace;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-    }
-    h1 {
-        font-size: 2rem;
-        margin: 10px 0;
-        color: #58a6ff;
-    }
-    p {
-        color: #8b949e;
-        font-size: 1.1rem;
-    }
-    /* Kod blok efekti */
-    .terminal {
-        background: #161b22;
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid #30363d;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-        width: 90%;
-        max-width: 600px;
-        font-size: 1rem;
-        line-height: 1.5;
-    }
-    .cursor {
-        display: inline-block;
-        width: 10px;
-        background: #58a6ff;
-        animation: blink 1s steps(1) infinite;
-    }
-    @keyframes blink {
-        50% { background: transparent; }
-    }
+  :root{
+    --bg:#0d1117; --panel:#161b22; --text:#c9d1d9; --accent:#58a6ff; --muted:#8b949e;
+    --border:#30363d; --glow:#0d6efd33; --cols:34; /* satır başına yazılacak karakter adımı */
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; height:100vh; display:grid; place-items:center; background:radial-gradient(1200px 800px at 70% -10%, #0b1220, var(--bg));
+    color:var(--text); font:16px/1.6 ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+    overflow:hidden;
+  }
+
+  /* Hafif grid arkaplan */
+  body::before{
+    content:""; position:fixed; inset:0; background:
+      linear-gradient(transparent 95%, #ffffff08 0) 0 0/100% 24px,
+      linear-gradient(90deg, transparent 95%, #ffffff08 0) 0 0/24px 100%;
+    opacity:.25; pointer-events:none;
+  }
+
+  .wrap{ width:min(780px, 92vw); padding:24px; }
+  h1{
+    margin:0 0 14px; font-size:clamp(20px, 3.2vw, 28px); color:var(--accent); letter-spacing:.3px;
+    text-shadow:0 0 20px var(--glow);
+  }
+  .sub{margin:0 0 18px; color:var(--muted); font-size:.95rem}
+
+  .panel{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:18px 16px 14px;
+    box-shadow:0 10px 30px #00000055, 0 0 0 1px #00000040 inset;
+  }
+
+  /* Terminal üst barı */
+  .bar{ display:flex; align-items:center; gap:8px; margin:0 0 12px; }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.red{ background:#ff5f56 } .dot.yellow{ background:#ffbd2e } .dot.green{ background:#27c93f }
+  .title{ margin-left:6px; color:#9aa6b2; font-size:.85rem }
+
+  /* Otomatik yazım (CSS-only) */
+  pre{
+    margin:0; color:var(--text); white-space:pre; font-size:clamp(12px, 2.4vw, 15.5px);
+  }
+  .line{
+    position:relative; display:block; overflow:hidden;
+    width:0ch; /* animasyonla büyüyecek */
+    border-right:2px solid var(--accent); /* caret */
+    animation: type 1.4s steps(var(--cols)) forwards, caret .9s steps(1) infinite;
+  }
+  /* Her satır için gecikme süreleri */
+  .l1{ --delay:0s }
+  .l2{ --delay:1.6s }
+  .l3{ --delay:3.2s }
+  .l4{ --delay:4.8s }
+  .l5{ --delay:6.4s }
+  .l6{ --delay:8.0s }
+
+  .line{ animation-delay:var(--delay), var(--delay) } /* hem type hem caret aynı anda başlasın */
+
+  /* Yazı içerikleri ::before ile geliyor; width ise ch üzerinden artıyor */
+  .line::before{ content:attr(data-text) }
+
+  /* Yazım tamamlanınca caret sönsün */
+  .line.done{ border-right-color:transparent; animation: none; width:auto }
+
+  /* Animasyonlar */
+  @keyframes type{
+    from{ width:0ch }
+    to  { width:var(--cols) }
+  }
+  @keyframes caret{
+    50% { border-right-color:transparent }
+  }
+
+  /* Alt bilgi */
+  .hint{ margin-top:10px; color:#6e7681; font-size:.8rem }
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <h1>Yapım Aşamasındadır</h1>
+    <p class="sub">Portföyümü derliyorum. Kısa süre sonra burada olacağım.</p>
 
-<div class="terminal">
-    <h1>$ Yapım Aşamasındadır</h1>
-    <p>// Projem üzerinde çalışıyorum, yakında yayında!</p>
-    <p>const status = "<span style='color:#3fb950;'>loading</span>"; <span class="cursor"></span></p>
-</div>
+    <div class="panel">
+      <div class="bar">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="title">/build/status.log</span>
+      </div>
+      <pre aria-label="otomatik yazım">
+<span class="line l1" data-text='$ init project --name "demirsoy.dev"'></span>
+<span class="line l2" data-text="> installing deps  [■■■■■■■■■■■■■■■■■■■■■■] 100%"></span>
+<span class="line l3" data-text="> setting up CI   ✔ done"></span>
+<span class="line l4" data-text="> generating pages ✔ done"></span>
+<span class="line l5" data-text="> running tests   ✔ 24 passed"></span>
+<span class="line l6" data-text="status: ONLINE_SOON // stay tuned"></span>
+      </pre>
+    </div>
 
+    <p class="hint">github.io üzerinde tek dosya: <code>index.html</code></p>
+  </div>
+
+  <!-- İsteğe bağlı: yazım bitince caret'i kapat (JS yok, CSS-only sürüm) -->
+  <script>
+    /* Bu minik kısım opsiyonel: animasyon bitince caret'i kalıcı kapatır.
+       İstersen sil ve tamamen JS'siz kullan. */
+    addEventListener('load', () => {
+      const lines = [...document.querySelectorAll('.line')];
+      const lastDelay = parseFloat(getComputedStyle(lines.at(-1)).getPropertyValue('--delay')) || 0;
+      const total = (lastDelay + 1.6) * 1000; // her satır ~1.4s + pay
+      setTimeout(() => lines.forEach(l => l.classList.add('done')), total);
+    });
+  </script>
 </body>
 </html>
