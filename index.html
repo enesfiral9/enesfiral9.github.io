@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yapım Aşamasındadır</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #121212;
-            color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .container {
-            max-width: 500px;
-            padding: 20px;
-        }
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1rem;
-            color: #ccc;
-        }
-        .loader {
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left-color: #ff9800;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            margin: 20px auto;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yapım Aşamasındadır</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: linear-gradient(#0b0f1a, #1a1f2b);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+    h1 {
+        margin-top: 20px;
+        font-size: 2rem;
+    }
+    p {
+        color: #ccc;
+    }
+    /* Ay */
+    .moon {
+        position: absolute;
+        top: 50px;
+        right: 50px;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        border-radius: 50%;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+    /* Kurt SVG boyutu ve animasyon */
+    .wolf {
+        width: 200px;
+        animation: howl 2s ease-in-out infinite;
+    }
+    @keyframes howl {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="loader"></div>
-        <h1>Yapım Aşamasındadır</h1>
-        <p>Bu site çok yakında yayında olacak. Takipte kalın!</p>
-    </div>
+
+<div class="moon"></div>
+
+<!-- Kurt SVG -->
+<svg class="wolf" viewBox="0 0 640 640" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M320 0C143.3 0 0 143.3 0 320s143.3 320 320 320 320-143.3 320-320S496.7 0 320 0zm83.2 175.2l20.8 55.6 59.2-14.4-39.2 45.6 33.6 48.8-56.8-10.4-18.4 54.4-22.4-53.6-58.4 12.8 37.6-47.2-35.2-47.2 55.2 10.4 23.6-55.2zm-130.4 93.6c-38.4 0-69.6 31.2-69.6 69.6 0 38.4 31.2 69.6 69.6 69.6 38.4 0 69.6-31.2 69.6-69.6 0-38.4-31.2-69.6-69.6-69.6z"/>
+</svg>
+
+<h1>Yapım Aşamasındadır</h1>
+<p>Bu site çok yakında yayında olacak.</p>
+
 </body>
 </html>
